@@ -1,24 +1,63 @@
 // Iteration #1: Find the maximum
-function maxOfTwoNumbers() {}
+function maxOfTwoNumbers(primeiro, segundo) {
+  return Math.max(primeiro, segundo)
+}
 
 
 
 // Iteration #2: Find longest word
 const words = ['mystery', 'brother', 'aviator', 'crocodile', 'pearl', 'orchard', 'crackpot'];
 
-function findLongestWord() {}
+function findLongestWord(words) {
+  let tamanho = 0
+  let maior = null
+  words.forEach( function (word) {
+    if (word.length > tamanho){
+        tamanho = word.length
+        maior = word
+    }
+  })
+
+  return maior
+}
 
 
 
 // Iteration #3: Calculate the sum
 const numbers = [6, 12, 1, 18, 13, 16, 2, 1, 8, 10];
 
-function sumNumbers() {}
+function sumNumbers(numbers) {
+  let sum = 0
+  numbers.forEach(numero => {
+      sum += numero
+  })
 
+  return sum
+}
 
 
 // Iteration #3.1 Bonus:
-function sum() {}
+function sum(matriz) {
+  if (!matriz.length){
+      return 0
+  }
+
+  let temporaria = []
+  matriz.forEach(elemento =>{
+      if (typeof elemento === 'object'){
+        throw new Error("Unsupported data type sir or ma'am")
+      } 
+      
+      if (typeof elemento !== 'string'){
+          temporaria.push(Number(elemento))
+      } else {
+          temporaria.push(elemento.length)
+      }
+  })
+  
+  return sumNumbers(temporaria)
+
+}
 
 
 
@@ -26,16 +65,35 @@ function sum() {}
 // Level 1: Array of numbers
 const numbersAvg = [2, 6, 9, 10, 7, 4, 1, 9];
 
-function averageNumbers() {}
+function averageNumbers(numbers) {
+  if (!numbers.length){
+    return null
+  }
+  return sumNumbers(numbers) / numbers.length
+}
 
 
 // Level 2: Array of strings
 const wordsArr = ['seat', 'correspond', 'linen', 'motif', 'hole', 'smell', 'smart', 'chaos', 'fuel', 'palace'];
 
-function averageWordLength() { }
+function averageWordLength(matriz) {
+  if (!matriz.length){
+    return null
+  }
+  
+  return sum(matriz) / matriz.length
+
+ }
 
 // Bonus - Iteration #4.1
-function avg() {}
+function avg(matriz) {
+  if(!matriz.length){
+    return null
+  }
+  
+  return sum(matriz) / matriz.length
+
+}
 
 // Iteration #5: Unique arrays
 const wordsUnique = [
@@ -52,14 +110,33 @@ const wordsUnique = [
   'bring'
 ];
 
-function uniquifyArray() {}
+function uniquifyArray(matriz) {
+  if (!matriz.length){
+      return null
+  }
+
+  let temporaria = []
+  matriz.forEach(element => {
+      if (!temporaria.includes(element)){
+          temporaria.push(element)
+      }       
+  })
+
+  return temporaria
+}
 
 
 
 // Iteration #6: Find elements
 const wordsFind = ['machine', 'subset', 'trouble', 'starting', 'matter', 'eating', 'truth', 'disobedience'];
 
-function doesWordExist() {}
+function doesWordExist(matriz, word) {
+  if(!matriz.length){
+    return null
+  }
+
+  return matriz.includes(word)
+}
 
 
 
@@ -78,7 +155,25 @@ const wordsCount = [
   'matter'
 ];
 
-function howManyTimes() {}
+function howManyTimes(matriz, word) {
+  if(!matriz.length){
+    return 0
+  }
+
+  let quantidade = 0
+  let indice = 0
+  while(indice !== -1){
+    let resultado = matriz.indexOf(word, indice)
+    if (resultado !== -1){
+      indice = resultado + 1
+      quantidade++
+    } else{
+      indice = resultado
+    }    
+  }
+
+  return quantidade
+}
 
 
 
