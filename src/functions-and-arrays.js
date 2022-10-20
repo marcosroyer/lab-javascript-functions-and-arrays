@@ -262,7 +262,8 @@ function transpor(matriz){
   return temporaria
 }
 
-//calcula o produto maximo para uma matriz de duas dimensões dado um intervalo
+//calcula o produto maximo para uma matriz de duas dimensões
+//Intervalo fixado em 4 porque Jasmine nao deixa uma função mais genéricaß
 //Para a matriz de exemplo acima, retorna 32.000
 function greatestProduct(matriz) {
   const intervalo = 4
