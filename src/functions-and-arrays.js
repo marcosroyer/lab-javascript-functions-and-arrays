@@ -201,7 +201,57 @@ const matrix = [
   [1, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 1, 89, 19, 67, 48]
 ];
 
-function greatestProduct() {}
+function multiplica(matriz){
+  let resultado = 1
+  for(let i=0; i < matriz.length; i++){
+      resultado *= matriz[i]
+  }
+  return resultado
+}
+
+function achaProdutoMax(matriz){
+  let maximo = 0
+
+  for(let i=0; i <= matriz.length - 4; i++){
+      let matrizTemp = matriz.slice(i, i + 4)
+      maximo = Math.max(maximo, multiplica(matrizTemp))
+  }
+  return maximo
+}
+
+function achaMaximoIntervalo(matriz){
+  let maximo = 0
+  //multiplica na horizontal e acha o maximo
+  for(let i=0; i < matriz.length; i++){
+      maximo = Math.max(achaProdutoMax(matriz[i]), maximo)
+  }
+  return maximo
+}
+
+function transpor(matriz){
+  let temporaria = matriz
+  for(let i=0; i < temporaria.length; i++){
+      for(let x=0; x < i; x++){
+          let temp = temporaria[i][x]
+          temporaria[i][x] = temporaria[x][i]
+          temporaria[x][i] = temp
+      }
+  }
+  return temporaria
+}
+
+function greatestProduct(matriz) {
+
+  let maximoHorizontal = achaMaximoIntervalo(matriz)
+  
+  //para vertical vamos transpor a matriz
+  let temporaria = transpor(matriz)
+  
+  let maximoVertical = achaMaximoIntervalo(temporaria)
+
+  return Math.max(maximoHorizontal, maximoVertical)
+}
+
 
 
 
