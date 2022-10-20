@@ -201,6 +201,8 @@ const matrix = [
   [1, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 1, 89, 19, 67, 48]
 ];
 
+//função que recebe uma matriz de 1 dimensão e multiplica seus elementos
+//p. ex., para uma matriz [1, 2, 3, 4], a função retorna o valor 24.
 function multiplica(matriz){
   let resultado = 1
   for(let i=0; i < matriz.length; i++){
@@ -209,25 +211,45 @@ function multiplica(matriz){
   return resultado
 }
 
-function achaProdutoMax(matriz){
+//função que recebe uma matriz de 1 dimensão e calcula o produto maximo desta matriz para um intervalo N
+//p. ex., para matriz [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] e N = 3, retorna 720
+function achaProdutoMax(matriz, intervalo){
   let maximo = 0
 
-  for(let i=0; i <= matriz.length - 4; i++){
-      let matrizTemp = matriz.slice(i, i + 4)
+  for(let i=0; i <= matriz.length - intervalo; i++){
+      let matrizTemp = matriz.slice(i, i + intervalo)
       maximo = Math.max(maximo, multiplica(matrizTemp))
   }
   return maximo
 }
 
-function achaMaximoIntervalo(matriz){
+/*função que recebe uma matriz de 2 dimensões e cacula o maior produto maximo de cada uma das linhas,
+dado um intervalo. Utiliza as funções anteriores para a tarefa
+P. ex., para a matriz abaixo, retorna 1200.
+[[ 1,  2, 3, 4, 5],
+[ 1, 20, 3, 4, 5],
+[ 1, 20, 3, 4, 5],
+[ 1, 20, 3, 4, 5],
+[ 1,  4, 3, 4, 6]] 
+*/
+function achaMaximoIntervalo(matriz, intervalo){
   let maximo = 0
   //multiplica na horizontal e acha o maximo
   for(let i=0; i < matriz.length; i++){
-      maximo = Math.max(achaProdutoMax(matriz[i]), maximo)
+      maximo = Math.max(achaProdutoMax(matriz[i], intervalo), maximo)
   }
   return maximo
 }
 
+
+/*Executa a transposição de uma matriz de 2 dimensões.
+P. ex., para matriz exemplo acima, retorna a seguinte matriz
+[[ 1, 1, 1, 1, 1 ],
+  [ 2, 20, 20, 20, 4 ],
+  [ 3, 3, 3, 3, 3 ],
+  [ 4, 4, 4, 4, 4 ],
+  [ 5, 5, 5, 5, 6 ]]
+  */
 function transpor(matriz){
   let temporaria = matriz
   for(let i=0; i < temporaria.length; i++){
@@ -240,14 +262,19 @@ function transpor(matriz){
   return temporaria
 }
 
+//calcula o produto maximo para uma matriz de duas dimensões dado um intervalo
+//Para a matriz de exemplo acima, retorna 32.000
 function greatestProduct(matriz) {
-
-  let maximoHorizontal = achaMaximoIntervalo(matriz)
+  const intervalo = 4
+  //acha o produto maximo na horizontal
+  let maximoHorizontal = achaMaximoIntervalo(matriz, intervalo)
   
-  //para vertical vamos transpor a matriz
+  //para vertical, vamos transpor a matriz e assim
+  //poderemos utilizar as funções que já temos
   let temporaria = transpor(matriz)
   
-  let maximoVertical = achaMaximoIntervalo(temporaria)
+  //acha o produto maximo na vertical
+  let maximoVertical = achaMaximoIntervalo(temporaria, intervalo)
 
   return Math.max(maximoHorizontal, maximoVertical)
 }
